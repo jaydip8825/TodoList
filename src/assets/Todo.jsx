@@ -23,8 +23,10 @@ const Todo = () => {
   };
 
   const deleteTodo = (id) => {
-    const isConfirmed = window.confirm("Are you sure this todo are Deleted.....");
-      if(!isConfirmed) return;
+    const isConfirmed = window.confirm(
+      "Are you sure this todo are Deleted....."
+    );
+    if (!isConfirmed) return;
     setTodos(todos.filter((todo) => todo.id !== id));
   };
 
@@ -34,66 +36,84 @@ const Todo = () => {
   };
 
   const saveEdit = (id) => {
-      const isConfirmed = window.confirm("Are you sure this msg is saved for Edite");
-      if(!isConfirmed) return;
+    const isConfirmed = window.confirm(
+      "Are you sure this msg is saved for Edite"
+    );
+    if (!isConfirmed) return;
 
     setTodos(
-      todos.map((todo) =>
-        todo.id === id ? { ...todo, text: editText } : todo
-      )
+      todos.map((todo) => (todo.id === id ? { ...todo, text: editText } : todo))
     );
     setEditID(null);
     setEditText("");
   };
 
-  const clearAllTodos  = () => {
-    const isConfirmed = window.confirm("Are you sure you are all data are deleted.....?");
-    if(!isConfirmed) return;
+  const clearAllTodos = () => {
+    const isConfirmed = window.confirm(
+      "Are you sure you are all data are deleted.....?"
+    );
+    if (!isConfirmed) return;
     setTodos([]);
-  }
+  };
 
   return (
- <div className="todo-container">
-  <h2>This is Todo list</h2>
-  <div className="todo-input">
-    <input
-      type="text"
-      value={input}
-      onChange={(e) => setInput(e.target.value)}
-      placeholder="Enter a todo"
-    />
-    <button onClick={addTodo}>Add</button>
-     <button className="clear-all" onClick={clearAllTodos}>Clear All</button>
-  </div>
+    <div className="todo-container">
+      <h2>This is Todo list</h2>
+      <div className="todo-input">
+        <input
+          type="text"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          placeholder="Enter a todo"
+          autoFocus
+        />
+        <button onClick={addTodo}>Add</button>
+        <button className="clear-all" onClick={clearAllTodos}>
+          Clear All
+        </button>
+      </div>
 
-  <ul>
-    {todos.map((todo) => (
-      <li key={todo.id}>
-        {editID === todo.id ? (
-          <>
-            <input
-              type="text"
-              value={editText}
-              onChange={(e) => setEditText(e.target.value)}
-            />
-            <div className="btn-group">
-              <button onClick={() => saveEdit(todo.id)}>Save</button>
-            </div>
-          </>
-        ) : (
-          <>
-            <span className="todo-text">{todo.text}</span>
-            <div className="btn-group">
-              <button className="delete" onClick={() => deleteTodo(todo.id)}>Delete</button>
-              <button className="edit" onClick={() => startEdit(todo.id, todo.text)}>Edit</button>
-            </div>
-          </>
-        )}
-      </li>
-    ))}
-  </ul>
-</div>
-
+      <ul>
+        {todos.map((todo, index) => (
+          <li key={todo.id}>
+            {editID === todo.id ? (
+              <>
+                <input
+                  type="text"
+                  value={editText}
+                  onChange={(e) => setEditText(e.target.value)}
+                />
+                <div className="btn-group">
+                  <button onClick={() => saveEdit(todo.id)}>Save</button>
+                </div>
+              </>
+            ) : (
+              <>
+                <span className="todo-text">
+                  <span className="todo-number">{index + 1}</span>
+                  {todo.text}
+                </span>
+                <div className="btn-group">
+                  <button
+                    className="edit"
+                    onClick={() => startEdit(todo.id, todo.text)}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    className="delete"
+                    onClick={() => deleteTodo(todo.id)}
+                  >
+                    Delete
+                  </button>
+                  
+                </div>
+              </>
+            )}
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 };
 

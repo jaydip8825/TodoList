@@ -114,3 +114,8 @@ li {
 .clear-all:hover {
   background-color: #c82333;
 }
+.todo-number {
+  font-weight: bold;
+  margin-right: 8px;
+}
+
